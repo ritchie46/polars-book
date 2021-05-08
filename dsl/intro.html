@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Expressions - Polars User Guide</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../quickstart/intro.html"><strong aria-hidden="true">2.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../quickstart/python.html"><strong aria-hidden="true">2.1.</strong> Python</a></li></ol></li><li class="chapter-item expanded "><a href="../dsl/intro.html" class="active"><strong aria-hidden="true">3.</strong> Polars expressions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../dsl/intro.html" class="active"><strong aria-hidden="true">3.1.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="../dsl/contexts.html"><strong aria-hidden="true">3.2.</strong> Contexts</a></li><li class="chapter-item expanded "><a href="../dsl/groupby.html"><strong aria-hidden="true">3.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../dsl/api.html"><strong aria-hidden="true">3.4.</strong> API</a></li></ol></li><li class="chapter-item expanded "><a href="../datatypes.html"><strong aria-hidden="true">4.</strong> Data Types</a></li><li class="chapter-item expanded "><a href="../performance/intro.html"><strong aria-hidden="true">5.</strong> Performance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../performance/strings.html"><strong aria-hidden="true">5.1.</strong> Strings</a></li></ol></li><li class="chapter-item expanded "><a href="../optimizations/intro.html"><strong aria-hidden="true">6.</strong> Optimizations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optimizations/lazy/intro.html"><strong aria-hidden="true">6.1.</strong> Lazy API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optimizations/lazy/predicate-pushdown.html"><strong aria-hidden="true">6.1.1.</strong> Predicate pushdown</a></li><li class="chapter-item expanded "><a href="../optimizations/lazy/projection-pushdown.html"><strong aria-hidden="true">6.1.2.</strong> Projection pushdown</a></li><li class="chapter-item expanded "><a href="../optimizations/lazy/other-optimizations.html"><strong aria-hidden="true">6.1.3.</strong> Other optimizations</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../howcani/intro.html"><strong aria-hidden="true">7.</strong> How can I?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/io/intro.html"><strong aria-hidden="true">7.1.</strong> IO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/io/csv.html"><strong aria-hidden="true">7.1.1.</strong> CSV files</a></li><li class="chapter-item expanded "><a href="../howcani/io/parquet.html"><strong aria-hidden="true">7.1.2.</strong> Parquet files</a></li><li class="chapter-item expanded "><a href="../howcani/io/aws.html"><strong aria-hidden="true">7.1.3.</strong> Interact with AWS</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/interop/intro.html"><strong aria-hidden="true">7.2.</strong> Interoperability</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/interop/arrow.html"><strong aria-hidden="true">7.2.1.</strong> Arrow</a></li><li class="chapter-item expanded "><a href="../howcani/interop/numpy.html"><strong aria-hidden="true">7.2.2.</strong> NumPy</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/data/intro.html"><strong aria-hidden="true">7.3.</strong> Data handling</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/data/strings.html"><strong aria-hidden="true">7.3.1.</strong> Process strings</a></li><li class="chapter-item expanded "><a href="../howcani/data/timestamps.html"><strong aria-hidden="true">7.3.2.</strong> Process timestamps</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/df/intro.html"><strong aria-hidden="true">7.4.</strong> Manipulate a DataFrame</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/df/filter.html"><strong aria-hidden="true">7.4.1.</strong> Filter</a></li><li class="chapter-item expanded "><a href="../howcani/df/sorting.html"><strong aria-hidden="true">7.4.2.</strong> Sorting</a></li><li class="chapter-item expanded "><a href="../howcani/df/groupby.html"><strong aria-hidden="true">7.4.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../howcani/df/join.html"><strong aria-hidden="true">7.4.4.</strong> Join DataFrames</a></li><li class="chapter-item expanded "><a href="../howcani/df/aggregate.html"><strong aria-hidden="true">7.4.5.</strong> Aggregate</a></li><li class="chapter-item expanded "><a href="../howcani/df/conditionally-apply.html"><strong aria-hidden="true">7.4.6.</strong> Conditionally apply</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/apply/intro.html"><strong aria-hidden="true">7.5.</strong> Apply</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/apply/udfs.html"><strong aria-hidden="true">7.5.1.</strong> Use custom functions</a></li><li class="chapter-item expanded "><a href="../howcani/apply/window-functions.html"><strong aria-hidden="true">7.5.2.</strong> Apply window functions</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/misc/intro.html"><strong aria-hidden="true">7.6.</strong> Miscellaneous</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/misc/group-statistics.html"><strong aria-hidden="true">7.6.1.</strong> Group statistics</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../references.html"><strong aria-hidden="true">8.</strong> Reference guides</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Polars User Guide</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="polars-expressions"><a class="header" href="#polars-expressions">Polars Expressions</a></h1>
+<p>Polars has a powerful concept called expressions. Polars expressions can be used in
+various context and produce Series. That may sound a bit strange, so lets give an
+example.</p>
+<p>The following is an expression:</p>
+<p><code>col(&quot;foo&quot;).sort().head(2)</code></p>
+<p>The snippet above says on <code>select column &quot;foo&quot; -&gt; sort -&gt; take first 2 values</code>. The
+power of expressions is that every expression produces a new expression and that they
+can be <code>piped</code> together. Besides, being very expressive, they are also <strong>embarrassingly
+parallel</strong>!</p>
+<h2 id="expression-examples"><a class="header" href="#expression-examples">Expression examples</a></h2>
+<p>In the next section we will go through some examples, but first create a dataset:</p>
+<pre><code class="language-python">import polars as pl
+from polars import col
+import numpy as np
+
+np.random.seed(12)
+
+df = pl.DataFrame(
+    {
+        &quot;nrs&quot;: [1, 2, 3, None, 5],
+        &quot;names&quot;: [&quot;foo&quot;, &quot;ham&quot;, &quot;spam&quot;, &quot;egg&quot;, None],
+        &quot;random&quot;: np.random.rand(5),
+        &quot;groups&quot;: [&quot;A&quot;, &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;B&quot;],
+    }
+)
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (5, 4)
+╭──────┬────────┬────────┬────────╮
+│ nrs  ┆ names  ┆ random ┆ groups │
+│ ---  ┆ ---    ┆ ---    ┆ ---    │
+│ i64  ┆ str    ┆ f64    ┆ str    │
+╞══════╪════════╪════════╪════════╡
+│ 1    ┆ &quot;foo&quot;  ┆ 0.154  ┆ &quot;A&quot;    │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 2    ┆ &quot;ham&quot;  ┆ 0.74   ┆ &quot;A&quot;    │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 3    ┆ &quot;spam&quot; ┆ 0.263  ┆ &quot;B&quot;    │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ null ┆ &quot;egg&quot;  ┆ 0.534  ┆ &quot;C&quot;    │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 5    ┆ null   ┆ 0.015  ┆ &quot;B&quot;    │
+╰──────┴────────┴────────┴────────╯
+</code></pre>
+<h2 id="some-more-examples"><a class="header" href="#some-more-examples">Some more examples.</a></h2>
+<p>You can do a lot with expressions. They are so expressive that you sometimes have got
+multiple ways to get the same results. To get a feel for them let's go through some
+examples.</p>
+<h3 id="count-unique-values"><a class="header" href="#count-unique-values">Count unique values</a></h3>
+<p>We can count the unique values in a column. Note that we are creating the same result in
+a different ways. To not have duplicate column names in the <code>DataFrame</code>, we use an
+<code>alias</code> expression, which renames an expression.</p>
+<pre><code class="language-python">df = df[
+    [
+        col(&quot;names&quot;).n_unique().alias(&quot;unique_names_1&quot;),
+        col(&quot;names&quot;).unique().count().alias(&quot;unique_names_2&quot;),
+    ]
+]
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (1, 2)
+╭────────────────┬────────────────╮
+│ unique_names_1 ┆ unique_names_2 │
+│ ---            ┆ ---            │
+│ u32            ┆ u32            │
+╞════════════════╪════════════════╡
+│ 5              ┆ 5              │
+╰────────────────┴────────────────╯
+</code></pre>
+<h3 id="various-aggregations"><a class="header" href="#various-aggregations">Various aggregations</a></h3>
+<p>We can do various aggregations. Below we show some of them, but there are more, such as
+<code>median</code>, <code>mean</code>, <code>first</code> etc.</p>
+<pre><code class="language-python">df = df[
+    [
+        pl.sum(&quot;random&quot;).alias(&quot;sum&quot;),
+        pl.min(&quot;random&quot;).alias(&quot;min&quot;),
+        pl.max(&quot;random&quot;).alias(&quot;max&quot;),
+        col(&quot;random&quot;).max().alias(&quot;other_max&quot;),
+        pl.std(&quot;random&quot;).alias(&quot;std dev&quot;),
+        pl.var(&quot;random&quot;).alias(&quot;variance&quot;),
+    ]
+]
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (1, 6)
+╭───────┬───────┬──────┬───────────┬─────────┬──────────╮
+│ sum   ┆ min   ┆ max  ┆ other_max ┆ std dev ┆ variance │
+│ ---   ┆ ---   ┆ ---  ┆ ---       ┆ ---     ┆ ---      │
+│ f64   ┆ f64   ┆ f64  ┆ f64       ┆ f64     ┆ f64      │
+╞═══════╪═══════╪══════╪═══════════╪═════════╪══════════╡
+│ 1.706 ┆ 0.015 ┆ 0.74 ┆ 0.74      ┆ 0.293   ┆ 0.086    │
+╰───────┴───────┴──────┴───────────┴─────────┴──────────╯
+</code></pre>
+<h3 id="filter-and-conditionals"><a class="header" href="#filter-and-conditionals">Filter and conditionals</a></h3>
+<p>We can also do quite some complex things. In the next snippet we count all names ending
+with the string <code>&quot;am&quot;</code>.</p>
+<pre><code class="language-python">df = df[[col(&quot;names&quot;).filter(col(&quot;names&quot;).str_contains(r&quot;am$&quot;)).count()]]
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (1, 1)
+╭───────╮
+│ names │
+│ ---   │
+│ u32   │
+╞═══════╡
+│ 2     │
+╰───────╯
+</code></pre>
+<h3 id="binary-functions-and-modification"><a class="header" href="#binary-functions-and-modification">Binary functions and modification</a></h3>
+<p>In the example below we use a conditional to create a new expression in the following
+<code>when -&gt; then -&gt; otherwise</code> construct. The <code>when()</code> function requires a predicate
+expression (and thus leads to a <code>boolean</code> <code>Series</code>), the <code>then</code> requires expects an
+expression that will be used in case the predicate evaluates <code>true</code>, and the <code>otherwise</code>
+expects and expression that will be used in case the predicate evaluates <code>false</code>.</p>
+<p>Note that you can pass any expression, or just base expressions like <code>col(&quot;foo&quot;)</code>,
+<code>lit(3)</code>, <code>lit(&quot;bar&quot;)</code>, etc.</p>
+<p>Finally, we multiply this with result of a sum expression.</p>
+<pre><code class="language-python">df = df[[pl.when(col(&quot;random&quot;) &gt; 0.5).then(0).otherwise(col(&quot;random&quot;)) * pl.sum(&quot;nrs&quot;)]]
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (5, 1)
+╭─────────╮
+│ literal │
+│ ---     │
+│ f64     │
+╞═════════╡
+│ 1.696   │
+├╌╌╌╌╌╌╌╌╌┤
+│ 0.0     │
+├╌╌╌╌╌╌╌╌╌┤
+│ 2.896   │
+├╌╌╌╌╌╌╌╌╌┤
+│ 0.0     │
+├╌╌╌╌╌╌╌╌╌┤
+│ 0.16    │
+╰─────────╯
+</code></pre>
+<h3 id="window-expressions-split-apply-combine"><a class="header" href="#window-expressions-split-apply-combine">Window expressions (split-apply-combine)</a></h3>
+<p>A polars expression can also do a do an implicit GROUPBY, AGGREGATION, and JOIN in a single expression.
+In the examples below we do a GROUPBY OVER <code>&quot;groups&quot;</code> and AGGREGATE SUM of <code>&quot;random&quot;</code>, and in the next expression
+we GROUPBY OVER <code>&quot;names&quot;</code> and AGGREGATE a LIST of <code>&quot;random&quot;</code>. These window functions can be combined with other expressions,
+and are an efficient way to determine group statistics. See more of those <a href="../../howcani/misc/group-statistics.html">group statistics here</a></p>
+<pre><code class="language-python">df = df[
+    [
+        col(&quot;*&quot;),  # select all
+        col(&quot;random&quot;).sum().over(&quot;groups&quot;).alias(&quot;sum[random]/groups&quot;),
+        col(&quot;random&quot;).list().over(&quot;names&quot;).alias(&quot;random/name&quot;),
+    ]
+]
+print(df)
+</code></pre>
+<pre><code class="language-text">shape: (5, 6)
+╭──────┬────────┬────────┬────────┬────────────────────┬──────────────────────────╮
+│ nrs  ┆ names  ┆ random ┆ groups ┆ sum[random]/groups ┆ random/name              │
+│ ---  ┆ ---    ┆ ---    ┆ ---    ┆ ---                ┆ ---                      │
+│ i64  ┆ str    ┆ f64    ┆ str    ┆ f64                ┆ list [f64]               │
+╞══════╪════════╪════════╪════════╪════════════════════╪══════════════════════════╡
+│ 1    ┆ &quot;foo&quot;  ┆ 0.154  ┆ &quot;A&quot;    ┆ 0.894              ┆ &quot;[0.15416284237967237]&quot;  │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ 2    ┆ &quot;ham&quot;  ┆ 0.74   ┆ &quot;A&quot;    ┆ 0.894              ┆ &quot;[0.7400496965154048]&quot;   │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ 3    ┆ &quot;spam&quot; ┆ 0.263  ┆ &quot;B&quot;    ┆ 0.278              ┆ &quot;[0.26331501518513467]&quot;  │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ null ┆ &quot;egg&quot;  ┆ 0.534  ┆ &quot;C&quot;    ┆ 0.534              ┆ &quot;[0.5337393933802977]&quot;   │
+├╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ 5    ┆ null   ┆ 0.015  ┆ &quot;B&quot;    ┆ 0.278              ┆ &quot;[0.014574962485419674]&quot; │
+╰──────┴────────┴────────┴────────┴────────────────────┴──────────────────────────╯
+</code></pre>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>This is only, a small tip of the possible expressions, there are a ton more, and they
+can be combined myriad ways.</p>
+<p>This page was an introduction to Polars expressions and gave a glimpse of what's
+possible with them. Next page we see in which contexts we can use expressions. And later we'll go through expressions
+in various groupby contexts and by doing that keep Polars execution parallel.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../quickstart/python.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../dsl/intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../quickstart/python.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../dsl/intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

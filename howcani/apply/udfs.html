@@ -1,0 +1,404 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Use custom functions - Polars User Guide</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../../favicon.png">
+        
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../../quickstart/intro.html"><strong aria-hidden="true">2.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../quickstart/python.html"><strong aria-hidden="true">2.1.</strong> Python</a></li></ol></li><li class="chapter-item expanded "><a href="../../dsl/intro.html"><strong aria-hidden="true">3.</strong> Polars expressions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../dsl/intro.html"><strong aria-hidden="true">3.1.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="../../dsl/contexts.html"><strong aria-hidden="true">3.2.</strong> Contexts</a></li><li class="chapter-item expanded "><a href="../../dsl/groupby.html"><strong aria-hidden="true">3.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../../dsl/api.html"><strong aria-hidden="true">3.4.</strong> API</a></li></ol></li><li class="chapter-item expanded "><a href="../../datatypes.html"><strong aria-hidden="true">4.</strong> Data Types</a></li><li class="chapter-item expanded "><a href="../../performance/intro.html"><strong aria-hidden="true">5.</strong> Performance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../performance/strings.html"><strong aria-hidden="true">5.1.</strong> Strings</a></li></ol></li><li class="chapter-item expanded "><a href="../../optimizations/intro.html"><strong aria-hidden="true">6.</strong> Optimizations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../optimizations/lazy/intro.html"><strong aria-hidden="true">6.1.</strong> Lazy API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../optimizations/lazy/predicate-pushdown.html"><strong aria-hidden="true">6.1.1.</strong> Predicate pushdown</a></li><li class="chapter-item expanded "><a href="../../optimizations/lazy/projection-pushdown.html"><strong aria-hidden="true">6.1.2.</strong> Projection pushdown</a></li><li class="chapter-item expanded "><a href="../../optimizations/lazy/other-optimizations.html"><strong aria-hidden="true">6.1.3.</strong> Other optimizations</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/intro.html"><strong aria-hidden="true">7.</strong> How can I?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/io/intro.html"><strong aria-hidden="true">7.1.</strong> IO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/io/csv.html"><strong aria-hidden="true">7.1.1.</strong> CSV files</a></li><li class="chapter-item expanded "><a href="../../howcani/io/parquet.html"><strong aria-hidden="true">7.1.2.</strong> Parquet files</a></li><li class="chapter-item expanded "><a href="../../howcani/io/aws.html"><strong aria-hidden="true">7.1.3.</strong> Interact with AWS</a></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/interop/intro.html"><strong aria-hidden="true">7.2.</strong> Interoperability</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/interop/arrow.html"><strong aria-hidden="true">7.2.1.</strong> Arrow</a></li><li class="chapter-item expanded "><a href="../../howcani/interop/numpy.html"><strong aria-hidden="true">7.2.2.</strong> NumPy</a></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/data/intro.html"><strong aria-hidden="true">7.3.</strong> Data handling</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/data/strings.html"><strong aria-hidden="true">7.3.1.</strong> Process strings</a></li><li class="chapter-item expanded "><a href="../../howcani/data/timestamps.html"><strong aria-hidden="true">7.3.2.</strong> Process timestamps</a></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/df/intro.html"><strong aria-hidden="true">7.4.</strong> Manipulate a DataFrame</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/df/filter.html"><strong aria-hidden="true">7.4.1.</strong> Filter</a></li><li class="chapter-item expanded "><a href="../../howcani/df/sorting.html"><strong aria-hidden="true">7.4.2.</strong> Sorting</a></li><li class="chapter-item expanded "><a href="../../howcani/df/groupby.html"><strong aria-hidden="true">7.4.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../../howcani/df/join.html"><strong aria-hidden="true">7.4.4.</strong> Join DataFrames</a></li><li class="chapter-item expanded "><a href="../../howcani/df/aggregate.html"><strong aria-hidden="true">7.4.5.</strong> Aggregate</a></li><li class="chapter-item expanded "><a href="../../howcani/df/conditionally-apply.html"><strong aria-hidden="true">7.4.6.</strong> Conditionally apply</a></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/apply/intro.html"><strong aria-hidden="true">7.5.</strong> Apply</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/apply/udfs.html" class="active"><strong aria-hidden="true">7.5.1.</strong> Use custom functions</a></li><li class="chapter-item expanded "><a href="../../howcani/apply/window-functions.html"><strong aria-hidden="true">7.5.2.</strong> Apply window functions</a></li></ol></li><li class="chapter-item expanded "><a href="../../howcani/misc/intro.html"><strong aria-hidden="true">7.6.</strong> Miscellaneous</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../howcani/misc/group-statistics.html"><strong aria-hidden="true">7.6.1.</strong> Group statistics</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../references.html"><strong aria-hidden="true">8.</strong> Reference guides</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Polars User Guide</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="apply-custom-functions"><a class="header" href="#apply-custom-functions">Apply custom functions</a></h1>
+<p>There will always be an operation so sketchy that one cannot do with the public API of
+<code>Polars</code>. Luckily this latter supports User Defined Functions (UDFs). This means one can
+define a <code>Python</code> function (or <code>lambda</code>) and pass it to the logical plan. Custom
+functions can be used in both the eager and the lazy API.</p>
+<h2 id="eager"><a class="header" href="#eager">Eager</a></h2>
+<p>Let's say we want to apply a mapping operation to a <code>Polars</code> <code>Series</code> in a eager
+fashion. This could be done as shown below:</p>
+<pre><code class="language-python">import polars as pl
+
+my_map = {1: &quot;foo&quot;, 2: &quot;bar&quot;, 3: &quot;ham&quot;, 4: &quot;spam&quot;, 5: &quot;eggs&quot;}
+
+s = pl.Series(&quot;a&quot;, [1, 2, 3, 4, 5])
+s = s.apply(lambda x: my_map[x])
+</code></pre>
+<p>returning:</p>
+<pre><code class="language-text">Series: 'a' [str]
+[
+	&quot;foo&quot;
+	&quot;bar&quot;
+	&quot;ham&quot;
+	&quot;spam&quot;
+	&quot;eggs&quot;
+]
+</code></pre>
+<p>There are a few gotchas however, due to the fact <code>Polars</code> <code>Series</code> can only contain a
+single datatype.</p>
+<p>In the <code>.apply()</code> method above we did not specify the datatype the <code>Series</code> should
+contain. <code>Polars</code> tries to infer the output datatype beforehand by calling the provided
+function itself. If it later gets a datatype that does not matche the initially inferred
+type, the value will be indicated as missing (<code>null</code>).</p>
+<p>If already known, it is thus recommended to provide the output datatype to <code>Polars</code> (via
+the <code>dtype</code> option of <code>.apply()</code>).</p>
+<p>Note it is possible to change datatype as a result of applying a function: the <code>lambda</code>
+we used above got an integer as input and returned a string (<code>pl.Utf8</code>) after finding
+the right key in the <code>my_map</code> dictionary.</p>
+<h2 id="lazy"><a class="header" href="#lazy">Lazy</a></h2>
+<p>Using the lazy API you can apply custom functions via the <code>.map</code> and the <code>.apply</code>
+methods.</p>
+<h4 id="map"><a class="header" href="#map">.map()</a></h4>
+<p>The <code>.map()</code> method maps a <code>Series</code> to a <code>Series</code> or a <code>DataFrame</code> to a <code>DataFrame</code>.</p>
+<h4 id="apply"><a class="header" href="#apply">.apply()</a></h4>
+<p>The <code>apply</code> method operates on the values of a <code>Series</code> as the function passed to
+<code>.apply()</code> should operate on a <em>single</em> primitive (<em>e.g.</em>, <code>int</code>, <code>str</code>, <code>bool</code>).</p>
+<p>When a custom function is used, the output datatype <em>must</em> be provided as the schema of
+the query has to be known at all time for the optimizer to do its job.</p>
+<p>See:</p>
+<pre><code class="language-python">import numpy as np
+import polars as pl
+
+np.random.seed(1)
+
+dataset = pl.DataFrame({&quot;foo&quot;: np.arange(10), &quot;bar&quot;: np.random.rand(10)})
+
+
+def my_custom_func(s: pl.Series) -&gt; pl.Series:
+    return np.exp(s) / np.log(s)
+
+
+# simple wrapper that take a function and sets output type
+my_udf = pl.udf(my_custom_func, output_type=pl.Float64)
+
+q = dataset.lazy().filter(pl.col(&quot;bar&quot;).map(my_udf) &gt; -1)
+
+df = q.collect()
+</code></pre>
+<p>yielding:</p>
+<pre><code class="language-text">shape: (4, 2)
+╭─────┬───────╮
+│ foo ┆ bar   │
+│ --- ┆ ---   │
+│ i64 ┆ f64   │
+╞═════╪═══════╡
+│ 2   ┆ 0.0   │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ 4   ┆ 0.147 │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ 5   ┆ 0.092 │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ 6   ┆ 0.186 │
+╰─────┴───────╯
+</code></pre>
+<p>Above is defined a custom function that was added to the lazy query and ran during
+execution of the physical plan. This of course greatly increases flexibility of a query,
+and when needed above is definitely the recommended implementation.</p>
+<p><strong>This is however not without cost.</strong></p>
+<p>Even though only vectorized code is used in this example (<code>NumPy</code> functions and <code>Polars</code>
+comparisons), this query may still be slower than a <code>Polars</code>-native query. Once again,
+this is due to the <code>Python</code> GIL. As mentioned before, <code>Polars</code> tries to parallelize the
+query execution on the available cores on your machine. However <code>Python</code> limits the
+number of threads to a unique instance. Many UDFs have thus to be run sequentially.</p>
+<p>An implementation similar to the eager example (applying a <code>lambda</code> function on the
+elements of a <code>Series</code>) could be:</p>
+<pre><code class="language-python">import polars as pl
+
+my_map = {1: &quot;foo&quot;, 2: &quot;bar&quot;, 3: &quot;ham&quot;, 4: &quot;spam&quot;, 5: &quot;eggs&quot;}
+
+dataset = pl.DataFrame({&quot;foo&quot;: [1, 2, 3, 4, 5]})
+
+
+def my_custom_func(s: pl.Series) -&gt; pl.Series:
+    return s.apply(lambda x: my_map[x])
+
+
+q = dataset.lazy().with_column(pl.col(&quot;foo&quot;).map(my_custom_func).alias(&quot;mapped&quot;))
+
+df = q.collect()
+</code></pre>
+<p>returning:</p>
+<pre><code class="language-text">shape: (5, 2)
+╭─────┬────────╮
+│ foo ┆ mapped │
+│ --- ┆ ---    │
+│ i64 ┆ str    │
+╞═════╪════════╡
+│ 1   ┆ &quot;foo&quot;  │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 2   ┆ &quot;bar&quot;  │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 3   ┆ &quot;ham&quot;  │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 4   ┆ &quot;spam&quot; │
+├╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ 5   ┆ &quot;eggs&quot; │
+╰─────┴────────╯
+</code></pre>
+<h4 id="groupby"><a class="header" href="#groupby">GroupBy</a></h4>
+<p>One can also use custom functions in a grouping context. Below are shown three different
+ways to get the length of each group, two using custom functions:</p>
+<pre><code class="language-python">import polars as pl
+
+dataset = pl.DataFrame(
+    {
+        &quot;A&quot;: [1, 2, 3, 4, 5],
+        &quot;fruits&quot;: [&quot;banana&quot;, &quot;banana&quot;, &quot;apple&quot;, &quot;apple&quot;, &quot;banana&quot;],
+        &quot;B&quot;: [5, 4, 3, 2, 1],
+        &quot;cars&quot;: [&quot;beetle&quot;, &quot;audi&quot;, &quot;beetle&quot;, &quot;beetle&quot;, &quot;beetle&quot;],
+    }
+)
+
+# three ways to determine the length groups
+q = (
+    dataset.lazy()
+    .groupby(&quot;fruits&quot;)
+    .agg(
+        [
+            pl.col(&quot;cars&quot;).apply(lambda groups: groups.len()).alias(&quot;custom_1&quot;),
+            pl.col(&quot;cars&quot;).apply(lambda groups: groups.len()).alias(&quot;custom_2&quot;),
+            pl.count(&quot;cars&quot;),
+        ]
+    )
+)
+
+df = q.collect()
+</code></pre>
+<p>And the respective outputs:</p>
+<pre><code class="language-text">shape: (2, 4)
+╭──────────┬──────────┬──────────┬────────────╮
+│ fruits   ┆ custom_1 ┆ custom_2 ┆ cars_count │
+│ ---      ┆ ---      ┆ ---      ┆ ---        │
+│ str      ┆ i64      ┆ i64      ┆ u32        │
+╞══════════╪══════════╪══════════╪════════════╡
+│ &quot;banana&quot; ┆ 3        ┆ 3        ┆ 3          │
+├╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;apple&quot;  ┆ 2        ┆ 2        ┆ 2          │
+╰──────────┴──────────┴──────────┴────────────╯
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../howcani/apply/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../howcani/apply/window-functions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../howcani/apply/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../howcani/apply/window-functions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

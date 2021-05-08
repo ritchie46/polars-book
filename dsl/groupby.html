@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>GroupBy - Polars User Guide</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../quickstart/intro.html"><strong aria-hidden="true">2.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../quickstart/python.html"><strong aria-hidden="true">2.1.</strong> Python</a></li></ol></li><li class="chapter-item expanded "><a href="../dsl/intro.html"><strong aria-hidden="true">3.</strong> Polars expressions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../dsl/intro.html"><strong aria-hidden="true">3.1.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="../dsl/contexts.html"><strong aria-hidden="true">3.2.</strong> Contexts</a></li><li class="chapter-item expanded "><a href="../dsl/groupby.html" class="active"><strong aria-hidden="true">3.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../dsl/api.html"><strong aria-hidden="true">3.4.</strong> API</a></li></ol></li><li class="chapter-item expanded "><a href="../datatypes.html"><strong aria-hidden="true">4.</strong> Data Types</a></li><li class="chapter-item expanded "><a href="../performance/intro.html"><strong aria-hidden="true">5.</strong> Performance</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../performance/strings.html"><strong aria-hidden="true">5.1.</strong> Strings</a></li></ol></li><li class="chapter-item expanded "><a href="../optimizations/intro.html"><strong aria-hidden="true">6.</strong> Optimizations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optimizations/lazy/intro.html"><strong aria-hidden="true">6.1.</strong> Lazy API</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../optimizations/lazy/predicate-pushdown.html"><strong aria-hidden="true">6.1.1.</strong> Predicate pushdown</a></li><li class="chapter-item expanded "><a href="../optimizations/lazy/projection-pushdown.html"><strong aria-hidden="true">6.1.2.</strong> Projection pushdown</a></li><li class="chapter-item expanded "><a href="../optimizations/lazy/other-optimizations.html"><strong aria-hidden="true">6.1.3.</strong> Other optimizations</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../howcani/intro.html"><strong aria-hidden="true">7.</strong> How can I?</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/io/intro.html"><strong aria-hidden="true">7.1.</strong> IO</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/io/csv.html"><strong aria-hidden="true">7.1.1.</strong> CSV files</a></li><li class="chapter-item expanded "><a href="../howcani/io/parquet.html"><strong aria-hidden="true">7.1.2.</strong> Parquet files</a></li><li class="chapter-item expanded "><a href="../howcani/io/aws.html"><strong aria-hidden="true">7.1.3.</strong> Interact with AWS</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/interop/intro.html"><strong aria-hidden="true">7.2.</strong> Interoperability</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/interop/arrow.html"><strong aria-hidden="true">7.2.1.</strong> Arrow</a></li><li class="chapter-item expanded "><a href="../howcani/interop/numpy.html"><strong aria-hidden="true">7.2.2.</strong> NumPy</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/data/intro.html"><strong aria-hidden="true">7.3.</strong> Data handling</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/data/strings.html"><strong aria-hidden="true">7.3.1.</strong> Process strings</a></li><li class="chapter-item expanded "><a href="../howcani/data/timestamps.html"><strong aria-hidden="true">7.3.2.</strong> Process timestamps</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/df/intro.html"><strong aria-hidden="true">7.4.</strong> Manipulate a DataFrame</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/df/filter.html"><strong aria-hidden="true">7.4.1.</strong> Filter</a></li><li class="chapter-item expanded "><a href="../howcani/df/sorting.html"><strong aria-hidden="true">7.4.2.</strong> Sorting</a></li><li class="chapter-item expanded "><a href="../howcani/df/groupby.html"><strong aria-hidden="true">7.4.3.</strong> GroupBy</a></li><li class="chapter-item expanded "><a href="../howcani/df/join.html"><strong aria-hidden="true">7.4.4.</strong> Join DataFrames</a></li><li class="chapter-item expanded "><a href="../howcani/df/aggregate.html"><strong aria-hidden="true">7.4.5.</strong> Aggregate</a></li><li class="chapter-item expanded "><a href="../howcani/df/conditionally-apply.html"><strong aria-hidden="true">7.4.6.</strong> Conditionally apply</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/apply/intro.html"><strong aria-hidden="true">7.5.</strong> Apply</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/apply/udfs.html"><strong aria-hidden="true">7.5.1.</strong> Use custom functions</a></li><li class="chapter-item expanded "><a href="../howcani/apply/window-functions.html"><strong aria-hidden="true">7.5.2.</strong> Apply window functions</a></li></ol></li><li class="chapter-item expanded "><a href="../howcani/misc/intro.html"><strong aria-hidden="true">7.6.</strong> Miscellaneous</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../howcani/misc/group-statistics.html"><strong aria-hidden="true">7.6.1.</strong> Group statistics</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../references.html"><strong aria-hidden="true">8.</strong> Reference guides</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Polars User Guide</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="groupby"><a class="header" href="#groupby">GroupBy</a></h1>
+<blockquote>
+<p>In redaction</p>
+</blockquote>
+<h2 id="a-multithreaded-approach"><a class="header" href="#a-multithreaded-approach">A multithreaded approach</a></h2>
+<p>One of the most efficient way to process tabular data is to parallelize its processing
+via the &quot;split-apply-combine&quot; approach. This operation is at the core of <code>Polars</code>
+grouping implementation, allowing it to attain lightning-fast operations. Most
+specifically, both the &quot;split&quot; and &quot;apply&quot; phases are executed in a multithreaded
+fashion.</p>
+<p>A simple grouping operation is taken below as an example to illustrate this approach:</p>
+<p><img src="https://raw.githubusercontent.com/ritchie46/static/master/polars/split-apply-combine-par.svg" alt="" /></p>
+<p>For the hashing operations performed during the &quot;split&quot; phase, <code>Polars</code> uses a
+multithreaded lock-free approach that can is illustrated on the following schema:</p>
+<p><img src="https://raw.githubusercontent.com/ritchie46/static/master/polars/lock-free-hash.svg" alt="" /></p>
+<p>This parallelization allows the grouping and joining operations (for instance) to be
+blazingly fast!</p>
+<blockquote>
+<p>Include content from the
+<a href="https://www.ritchievink.com/blog/2021/02/28/i-wrote-one-of-the-fastest-dataframe-libraries/">blog post</a></p>
+</blockquote>
+<h2 id="do-not-kill-the-parallelization"><a class="header" href="#do-not-kill-the-parallelization">Do not kill the parallelization!</a></h2>
+<p>We have all heard that <code>Python</code> is slow, and does &quot;not scale.&quot; Besides the overhead of
+running &quot;slow&quot; bytecode, <code>Python</code> has to remain within the constraints of the Global
+Interpreter Lock (GIL). This means that if one uses a <code>lambda</code> or a custom <code>Python</code>
+function to apply during a parallelized phase, <code>Polars</code> speed is capped running <code>Python</code>
+code preventing any multiple threads from executing the function.</p>
+<p>This all feels terribly limiting, especially because we often need those <code>lambda</code> in a
+<code>.groupby()</code> step for instance. This approach is still supported by <code>Polars</code>, but
+keeping in mind bytecode AND the GIL price have to be paid.</p>
+<p>To mitigate this, <code>Polars</code> implements a powerful syntax defined not only in its lazy,
+but also in its eager API.</p>
+<h2 id="polars-expressions"><a class="header" href="#polars-expressions">Polars Expressions</a></h2>
+<p>In the introduction on previous page we discussed that using custom Python functions,
+killed parallelization, and that we can use the expressions of the lazy API to mitigate
+this. Let's take a look at what that means.</p>
+<h3 id="eager-and-lazy"><a class="header" href="#eager-and-lazy">Eager and Lazy</a></h3>
+<p>For groupby operations you can use the lazy API in Polars eager. That means that if you
+run this snippet of code</p>
+<pre><code class="language-python">df.groupby(&quot;foo&quot;).agg([pl.col(&quot;bar&quot;).sum()])
+</code></pre>
+<p>It actually desugars to:</p>
+<pre><code class="language-python">(df.lazy().groupby(&quot;foo&quot;).agg([pl.col(&quot;bar&quot;).sum()])).collect()
+</code></pre>
+<p>That means you don't have to go to lazy by yourself if you need the more powerful API.</p>
+<h3 id="why-would-you-want-this"><a class="header" href="#why-would-you-want-this">Why would you want this.</a></h3>
+<p>As discussed earlier, this allows us to delay the need of grabbing Python <code>lambdas</code> to
+do a more complex aggregation. So let's start very simple and see how we can use the DSL
+to do increasingly complex queries.</p>
+<p>Let's start with a simple dataset
+<a href="https://github.com/unitedstates/congress-legislators">US congress dataset</a>.</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+q = (
+    dataset.lazy()
+    .groupby(&quot;first_name&quot;)
+    .agg([pl.count(&quot;party&quot;), pl.col(&quot;gender&quot;).list(), pl.first(&quot;last_name&quot;)])
+    .sort(&quot;party_count&quot;, reverse=True)
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<h4 id="basic-aggregations"><a class="header" href="#basic-aggregations">Basic aggregations</a></h4>
+<p>You can easily combine different aggregations by adding multiple expressions in a
+<code>list</code>. There is no upper bound on the number of aggregations you can do, and you can
+make any combination you want. In the snippet below we do the following aggregations:</p>
+<p>Per GROUP <code>&quot;first_name&quot;</code> we</p>
+<ul>
+<li>count the number of rows in the group:
+<ul>
+<li>short form: <code>pl.count(&quot;party&quot;)</code></li>
+<li>full form: <code>col(&quot;party&quot;).count()</code></li>
+</ul>
+</li>
+<li>aggregate the gender values group to a list:
+<ul>
+<li>full form: <code>col(&quot;gender&quot;).list()</code></li>
+</ul>
+</li>
+<li>get the first value of column <code>&quot;last_name&quot;</code> in the group:
+<ul>
+<li>short form: <code>pl.first(&quot;last_name&quot;)</code></li>
+<li>full form: <code>col(&quot;last_name&quot;).first()</code></li>
+</ul>
+</li>
+</ul>
+<p>Besides the aggregation, we immediately sort the result and limit to the top 5 so that
+we have a nice summary overview.</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+q = (
+    dataset.lazy()
+    .groupby(&quot;first_name&quot;)
+    .agg([pl.count(&quot;party&quot;), pl.col(&quot;gender&quot;).list(), pl.first(&quot;last_name&quot;)])
+    .sort(&quot;party_count&quot;, reverse=True)
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 4)
+╭────────────┬─────────────┬─────────────────┬─────────────────╮
+│ first_name ┆ party_count ┆ gender_agg_list ┆ last_name_first │
+│ ---        ┆ ---         ┆ ---             ┆ ---             │
+│ cat        ┆ u32         ┆ list [str]      ┆ str             │
+╞════════════╪═════════════╪═════════════════╪═════════════════╡
+│ &quot;John&quot;     ┆ 1254        ┆ &quot;[M, M, ... M]&quot; ┆ &quot;Walker&quot;        │
+├╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;William&quot;  ┆ 1022        ┆ &quot;[M, M, ... M]&quot; ┆ &quot;Few&quot;           │
+├╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;James&quot;    ┆ 712         ┆ &quot;[M, M, ... M]&quot; ┆ &quot;Armstrong&quot;     │
+├╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;Thomas&quot;   ┆ 453         ┆ &quot;[M, M, ... M]&quot; ┆ &quot;Tucker&quot;        │
+├╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;Charles&quot;  ┆ 439         ┆ &quot;[M, M, ... M]&quot; ┆ &quot;Carroll&quot;       │
+╰────────────┴─────────────┴─────────────────┴─────────────────╯
+</code></pre>
+<h4 id="conditionals"><a class="header" href="#conditionals">Conditionals</a></h4>
+<p>Ok, that was pretty easy right. Let turn it up a notch. Let's say we want to know how
+many delegates of a &quot;state&quot; are &quot;Pro&quot; or &quot;Anti&quot; administration we could directly query
+that in the aggregation without the need of <code>lambda</code> or grooming the DataFrame.</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+q = (
+    dataset.lazy()
+    .groupby(&quot;state&quot;)
+    .agg(
+        [
+            (pl.col(&quot;party&quot;) == &quot;Anti-Administration&quot;).sum().alias(&quot;anti&quot;),
+            (pl.col(&quot;party&quot;) == &quot;Pro-Administration&quot;).sum().alias(&quot;pro&quot;),
+        ]
+    )
+    .sort(&quot;pro&quot;, reverse=True)
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 3)
+╭───────┬──────┬─────╮
+│ state ┆ anti ┆ pro │
+│ ---   ┆ ---  ┆ --- │
+│ cat   ┆ u32  ┆ u32 │
+╞═══════╪══════╪═════╡
+│ &quot;CT&quot;  ┆ 0    ┆ 3   │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┤
+│ &quot;NJ&quot;  ┆ 0    ┆ 3   │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┤
+│ &quot;NC&quot;  ┆ 1    ┆ 2   │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┤
+│ &quot;SC&quot;  ┆ 0    ┆ 1   │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌┼╌╌╌╌╌┤
+│ &quot;PA&quot;  ┆ 1    ┆ 1   │
+╰───────┴──────┴─────╯
+</code></pre>
+<p>Something similar could of course also be done with a nested GROUPBY, but that would not
+allow me showing these nice features. 😉</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+q = (
+    dataset.lazy()
+    .groupby([&quot;state&quot;, &quot;party&quot;])
+    .agg([pl.count(&quot;party&quot;).alias(&quot;count&quot;)])
+    .filter(
+        (pl.col(&quot;party&quot;) == &quot;Anti-Administration&quot;)
+        | (pl.col(&quot;party&quot;) == &quot;Pro-Administration&quot;)
+    )
+    .sort(&quot;count&quot;, reverse=True)
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 3)
+╭───────┬───────────────────────┬───────╮
+│ state ┆ party                 ┆ count │
+│ ---   ┆ ---                   ┆ ---   │
+│ cat   ┆ cat                   ┆ u32   │
+╞═══════╪═══════════════════════╪═══════╡
+│ &quot;CT&quot;  ┆ &quot;Pro-Administration&quot;  ┆ 3     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ &quot;VA&quot;  ┆ &quot;Anti-Administration&quot; ┆ 3     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ &quot;NJ&quot;  ┆ &quot;Pro-Administration&quot;  ┆ 3     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ &quot;NC&quot;  ┆ &quot;Pro-Administration&quot;  ┆ 2     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌┤
+│ &quot;VA&quot;  ┆ &quot;Pro-Administration&quot;  ┆ 1     │
+╰───────┴───────────────────────┴───────╯
+</code></pre>
+<h4 id="filtering"><a class="header" href="#filtering">Filtering</a></h4>
+<p>We can also filter the groups. Let's say we want to compute a mean per group, but we
+don't want to include all values from that group and we also don't want to filter the
+rows from the <code>DataFrame</code> (because we need that rows for another aggregation.)</p>
+<p>In the example below we show how that can be done. Note that we can make <code>Python</code>
+functions for clarity. These functions don't cost us anything. That is because we only
+create <code>Polars</code> expression, we don't apply a custom function over <code>Series</code> during
+runtime of the query.</p>
+<pre><code class="language-python">from datetime import datetime
+
+import polars as pl
+
+from .dataset import dataset
+
+
+def compute_age() -&gt; pl.Expr:
+    # Date64 is time in ms
+    ms_to_year = 1e3 * 3600 * 24 * 365
+    return (
+        pl.lit(datetime(2021, 1, 1)) - pl.col(&quot;birthday&quot;).str_parse_date(pl.Date32)
+    ) / (ms_to_year)
+
+
+def avg_birthday(gender: str) -&gt; pl.Expr:
+    return (
+        compute_age()
+        .filter(pl.col(&quot;gender&quot;) == gender)
+        .mean()
+        .alias(f&quot;avg {gender} birthday&quot;)
+    )
+
+
+q = (
+    dataset.lazy()
+    .groupby([&quot;state&quot;])
+    .agg(
+        [
+            avg_birthday(&quot;M&quot;),
+            avg_birthday(&quot;F&quot;),
+            (pl.col(&quot;gender&quot;) == &quot;M&quot;).sum().alias(&quot;# male&quot;),
+            (pl.col(&quot;gender&quot;) == &quot;F&quot;).sum().alias(&quot;# female&quot;),
+        ]
+    )
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 5)
+╭───────┬────────────────┬────────────────┬────────┬──────────╮
+│ state ┆ avg M birthday ┆ avg F birthday ┆ # male ┆ # female │
+│ ---   ┆ ---            ┆ ---            ┆ ---    ┆ ---      │
+│ cat   ┆ f64            ┆ f64            ┆ u32    ┆ u32      │
+╞═══════╪════════════════╪════════════════╪════════╪══════════╡
+│ &quot;NY&quot;  ┆ 185.85         ┆ 96.438         ┆ 1447   ┆ 20       │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;DK&quot;  ┆ 190.872        ┆ null           ┆ 9      ┆ 0        │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;AZ&quot;  ┆ 115.061        ┆ 78.03          ┆ 45     ┆ 4        │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;TX&quot;  ┆ 132.318        ┆ 87.623         ┆ 259    ┆ 4        │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;MI&quot;  ┆ 150.862        ┆ 84.536         ┆ 289    ┆ 7        │
+╰───────┴────────────────┴────────────────┴────────┴──────────╯
+</code></pre>
+<h4 id="sorting"><a class="header" href="#sorting">Sorting</a></h4>
+<p>I often see a DataFrame being sorted for the sole purpose of the ordering during the
+GROUPBY operation. Let's say that we want to get the names of the oldest and youngest
+(not that they are still alive) politicians per state, we could SORT and GROUPBY.</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+
+def get_person() -&gt; pl.Expr:
+    return pl.col(&quot;first_name&quot;) + pl.lit(&quot; &quot;) + pl.col(&quot;last_name&quot;)
+
+
+q = (
+    dataset.lazy()
+    .sort(&quot;birthday&quot;)
+    .groupby([&quot;state&quot;])
+    .agg(
+        [
+            get_person().first().alias(&quot;youngest&quot;),
+            get_person().last().alias(&quot;oldest&quot;),
+        ]
+    )
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 3)
+╭───────┬──────────────────┬──────────────────╮
+│ state ┆ youngest         ┆ oldest           │
+│ ---   ┆ ---              ┆ ---              │
+│ cat   ┆ str              ┆ str              │
+╞═══════╪══════════════════╪══════════════════╡
+│ &quot;MI&quot;  ┆ &quot;Edward Bradley&quot; ┆ &quot;Justin Amash&quot;   │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;DK&quot;  ┆ &quot;John Todd&quot;      ┆ &quot;George Mathews&quot; │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;AR&quot;  ┆ &quot;Archibald Yell&quot; ┆ &quot;Tim Griffin&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;GA&quot;  ┆ &quot;Thomas Carnes&quot;  ┆ &quot;Kwanza Hall&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;VT&quot;  ┆ &quot;Samuel Shaw&quot;    ┆ &quot;Peter Smith&quot;    │
+╰───────┴──────────────────┴──────────────────╯
+</code></pre>
+<p>However, IF we also want to sort the names alphabetically (and why wouldn't you!), this
+breaks. Luckily we can sort in a groupby context separate from the <code>DataFrame</code>.</p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+
+def get_person() -&gt; pl.Expr:
+    return pl.col(&quot;first_name&quot;) + pl.lit(&quot; &quot;) + pl.col(&quot;last_name&quot;)
+
+
+q = (
+    dataset.lazy()
+    .sort(&quot;birthday&quot;)
+    .groupby([&quot;state&quot;])
+    .agg(
+        [
+            get_person().first().alias(&quot;youngest&quot;),
+            get_person().last().alias(&quot;oldest&quot;),
+            get_person().sort().first().alias(&quot;alphabetical_first&quot;),
+        ]
+    )
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 4)
+╭───────┬──────────────────┬──────────────────┬────────────────────╮
+│ state ┆ youngest         ┆ oldest           ┆ alphabetical_first │
+│ ---   ┆ ---              ┆ ---              ┆ ---                │
+│ cat   ┆ str              ┆ str              ┆ str                │
+╞═══════╪══════════════════╪══════════════════╪════════════════════╡
+│ &quot;OR&quot;  ┆ &quot;George Shiel&quot;   ┆ &quot;Greg Walden&quot;    ┆ &quot;Abraham Lafferty&quot; │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;KS&quot;  ┆ &quot;James Lane&quot;     ┆ &quot;Steven Watkins&quot; ┆ &quot;Abel Wilder&quot;      │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;SC&quot;  ┆ &quot;Ralph Izard&quot;    ┆ &quot;Joe Cunningham&quot; ┆ &quot;Abraham Nott&quot;     │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;ND&quot;  ┆ &quot;Lyman Casey&quot;    ┆ &quot;Rick Berg&quot;      ┆ &quot;Arthur Link&quot;      │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ &quot;AR&quot;  ┆ &quot;Archibald Yell&quot; ┆ &quot;Tim Griffin&quot;    ┆ &quot;Albert Rust&quot;      │
+╰───────┴──────────────────┴──────────────────┴────────────────────╯
+</code></pre>
+<p>We can even sort by another column in the GROUPBY context. If we want to know if the
+alphabetically sorted name is male or female we could add
+<code>col(&quot;gender&quot;).sort_by(&quot;first_name&quot;).first().alias(&quot;gender&quot;)</code></p>
+<pre><code class="language-python">import polars as pl
+
+from .dataset import dataset
+
+
+def get_person() -&gt; pl.Expr:
+    return pl.col(&quot;first_name&quot;) + pl.lit(&quot; &quot;) + pl.col(&quot;last_name&quot;)
+
+
+q = (
+    dataset.lazy()
+    .sort(&quot;birthday&quot;)
+    .groupby([&quot;state&quot;])
+    .agg(
+        [
+            get_person().first().alias(&quot;youngest&quot;),
+            get_person().last().alias(&quot;oldest&quot;),
+            get_person().sort().first().alias(&quot;alphabetical_first&quot;),
+            pl.col(&quot;gender&quot;).sort_by(&quot;first_name&quot;).first().alias(&quot;gender&quot;),
+        ]
+    )
+    .sort(&quot;state&quot;)
+    .limit(5)
+)
+
+df = q.collect()
+</code></pre>
+<pre><code class="language-text">shape: (5, 5)
+╭───────┬─────────────────────┬──────────────────┬────────────────────┬────────╮
+│ state ┆ youngest            ┆ oldest           ┆ alphabetical_first ┆ gender │
+│ ---   ┆ ---                 ┆ ---              ┆ ---                ┆ ---    │
+│ cat   ┆ str                 ┆ str              ┆ str                ┆ cat    │
+╞═══════╪═════════════════════╪══════════════════╪════════════════════╪════════╡
+│ &quot;DE&quot;  ┆ &quot;Samuel White&quot;      ┆ &quot;John Carney&quot;    ┆ &quot;Albert Polk&quot;      ┆ &quot;M&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ &quot;VA&quot;  ┆ &quot;William Grayson&quot;   ┆ &quot;Scott Taylor&quot;   ┆ &quot;Abraham Venable&quot;  ┆ &quot;M&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ &quot;SC&quot;  ┆ &quot;Ralph Izard&quot;       ┆ &quot;Joe Cunningham&quot; ┆ &quot;Abraham Nott&quot;     ┆ &quot;M&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ &quot;MD&quot;  ┆ &quot;Benjamin Contee&quot;   ┆ &quot;Frank Kratovil&quot; ┆ &quot;Albert Blakeney&quot;  ┆ &quot;M&quot;    │
+├╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌┤
+│ &quot;PA&quot;  ┆ &quot;Thomas Fitzsimons&quot; ┆ &quot;Ryan Costello&quot;  ┆ &quot;Aaron Kreider&quot;    ┆ &quot;M&quot;    │
+╰───────┴─────────────────────┴──────────────────┴────────────────────┴────────╯
+</code></pre>
+<h3 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h3>
+<p>In the examples above we've seen that we can do a lot by combining expressions. By doing
+so we delay the use of custom python functions that slow down the queries (by the slow
+nature of Python AND the GIL).</p>
+<p>If you think there is a type expression missing, let me know and open a
+<a href="https://github.com/ritchie46/polars/issues/new/choose">feature request</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../dsl/contexts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../dsl/api.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../dsl/contexts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../dsl/api.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
